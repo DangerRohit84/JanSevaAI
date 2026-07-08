@@ -21,7 +21,7 @@ function AppContent() {
             <div className="flex justify-between h-16">
               <div className="flex items-center">
                 <Link to="/" className="flex items-center">
-                  <img src="/logo.png" alt="JanSevaAI" className="h-9 w-auto object-contain" />
+                  <img src="/logo.png" alt="JanSevaAI" className="h-12 w-auto object-contain" />
                 </Link>
               </div>
               <div className="flex items-center space-x-4">

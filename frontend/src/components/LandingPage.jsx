@@ -59,16 +59,18 @@ export default function LandingPage() {
     <div>
       {/* Hero Section */}
       <div style={{
-        background: 'linear-gradient(180deg, #1e3a5f 0%, #0d9488 100%)',
+        background: 'linear-gradient(180deg, #f0f9ff 0%, #e0f2fe 100%)',
         padding: '80px 24px 60px',
         textAlign: 'center',
       }}>
-        <div style={{ maxWidth: '900px', margin: '0 auto' }}>
-          <img src="/logo.png" alt="JanSevaAI" style={{ height: '160px', width: 'auto', objectFit: 'contain', marginBottom: '24px' }} />
-          <p style={{ fontSize: '24px', color: '#fff', marginBottom: '8px', fontWeight: 600 }}>
+        <div style={{ maxWidth: '900px', margin: '0 auto', textAlign: 'center' }}>
+          <div style={{ textAlign: 'center', width: '100%' }}>
+            <img src="/logo.png" alt="JanSevaAI" style={{ height: '160px', display: 'inline-block' }} />
+          </div>
+          <p style={{ fontSize: '24px', color: '#1e3a5f', marginBottom: '8px', fontWeight: 600, marginTop: '24px' }}>
             जनसेवाAI — Your Voice, Your Development
           </p>
-          <p style={{ fontSize: '16px', color: '#e0f2fe', maxWidth: '600px', margin: '0 auto 40px', lineHeight: 1.6 }}>
+          <p style={{ fontSize: '16px', color: '#475569', maxWidth: '600px', margin: '0 auto 40px', lineHeight: 1.6 }}>
             AI-powered platform that consolidates citizen development requests into priority-ranked recommendations for MPs. Speak in any language — we listen.
           </p>
           <div style={{ display: 'flex', gap: '16px', justifyContent: 'center', flexWrap: 'wrap' }}>
@@ -84,10 +86,10 @@ export default function LandingPage() {
             </Link>
             <Link to="/priorities" style={{
               display: 'inline-flex', alignItems: 'center', gap: '8px',
-              padding: '14px 32px', background: 'rgba(255,255,255,0.1)', color: '#fff',
+              padding: '14px 32px', background: '#0d9488', color: '#fff',
               borderRadius: '12px', fontSize: '16px', fontWeight: 600,
-              textDecoration: 'none', border: '1px solid rgba(255,255,255,0.2)',
-              transition: 'all 0.2s',
+              textDecoration: 'none', border: 'none',
+              transition: 'all 0.2s', boxShadow: '0 4px 14px rgba(13,148,136,0.4)',
             }}>
               View Priorities
             </Link>
