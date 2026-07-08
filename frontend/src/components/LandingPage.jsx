@@ -72,7 +72,7 @@ export default function LandingPage() {
           <div style={{ display: 'inline-block', padding: '6px 16px', background: 'rgba(255,255,255,0.1)', borderRadius: '20px', marginBottom: '24px', fontSize: '13px', color: '#93c5fd', letterSpacing: '1px' }}>
             POWERED BY GOOGLE AI
           </div>
-          <img src="/logo.png" alt="JanSevaAI" style={{ height: '120px', marginBottom: '16px' }} />
+          <img src="/logo.png" alt="JanSevaAI" style={{ height: '100px', width: 'auto', objectFit: 'contain', marginBottom: '16px' }} />
           <p style={{ fontSize: '22px', color: '#93c5fd', marginBottom: '8px', fontWeight: 500 }}>
             जनसेवाAI — Your Voice, Your Development
           </p>

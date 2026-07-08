@@ -255,7 +255,7 @@ export default function MPDashboard() {
       <header className="bg-white border-b shadow-sm sticky top-0 z-10">
         <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
           <div className="flex items-center space-x-3">
-            <img src="/logo.png" alt="JanSevaAI" className="h-10" />
+            <img src="/logo.png" alt="JanSevaAI" className="h-8 w-auto object-contain" />
             <div>
               <h1 className="font-bold text-gray-900">JanSevaAI</h1>
               <p className="text-xs text-gray-500">MP Dashboard</p>

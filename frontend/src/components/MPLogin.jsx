@@ -76,7 +76,7 @@ export default function MPLogin() {
     <div className="min-h-screen flex items-center justify-center py-12 px-4" style={{ background: 'linear-gradient(135deg, #1e3a5f 0%, #0d9488 100%)' }}>
       <div className="max-w-md w-full">
         <div className="text-center mb-8">
-          <img src="/logo.png" alt="JanSevaAI" className="h-20 mx-auto mb-4" />
+          <img src="/logo.png" alt="JanSevaAI" className="h-16 w-auto object-contain mx-auto mb-4" />
           <h1 className="text-3xl font-bold text-white mb-2">MP Dashboard Login</h1>
           <p className="text-blue-100">JanSevaAI - People's Priorities Platform</p>
         </div>
