@@ -59,24 +59,16 @@ export default function LandingPage() {
     <div>
       {/* Hero Section */}
       <div style={{
-        background: 'linear-gradient(180deg, #1e3a5f 0%, #0d9488 100%)',
-        padding: '100px 24px 80px',
-        position: 'relative',
-        overflow: 'hidden',
+        background: '#fff',
+        padding: '80px 24px 60px',
+        textAlign: 'center',
       }}>
-        <div style={{
-          position: 'absolute', top: 0, left: 0, right: 0, bottom: 0,
-          background: 'radial-gradient(circle at 50% 50%, rgba(13,148,136,0.3) 0%, transparent 60%)',
-        }}></div>
-        <div style={{ maxWidth: '900px', margin: '0 auto', position: 'relative', zIndex: 1, textAlign: 'center' }}>
-          <img src="/logo.png" alt="JanSevaAI" style={{ height: '140px', width: 'auto', objectFit: 'contain', marginBottom: '24px' }} />
-          <div style={{ display: 'inline-block', padding: '6px 16px', background: 'rgba(255,255,255,0.15)', borderRadius: '20px', marginBottom: '24px', fontSize: '13px', color: '#fff', letterSpacing: '1px' }}>
-            POWERED BY GOOGLE AI
-          </div>
-          <p style={{ fontSize: '24px', color: '#fff', marginBottom: '8px', fontWeight: 600 }}>
+        <div style={{ maxWidth: '900px', margin: '0 auto' }}>
+          <img src="/logo.png" alt="JanSevaAI" style={{ height: '160px', width: 'auto', objectFit: 'contain', marginBottom: '24px' }} />
+          <p style={{ fontSize: '24px', color: '#1e3a5f', marginBottom: '8px', fontWeight: 600 }}>
             जनसेवाAI — Your Voice, Your Development
           </p>
-          <p style={{ fontSize: '16px', color: '#e0f2fe', maxWidth: '600px', margin: '0 auto 40px', lineHeight: 1.6 }}>
+          <p style={{ fontSize: '16px', color: '#64748b', maxWidth: '600px', margin: '0 auto 40px', lineHeight: 1.6 }}>
             AI-powered platform that consolidates citizen development requests into priority-ranked recommendations for MPs. Speak in any language — we listen.
           </p>
           <div style={{ display: 'flex', gap: '16px', justifyContent: 'center', flexWrap: 'wrap' }}>
