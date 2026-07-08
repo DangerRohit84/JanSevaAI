@@ -61,4 +61,9 @@ export const getDashboard = async () => {
   return response.data;
 };
 
+export const getPublicDashboard = async () => {
+  const response = await api.get('/analysis/public-dashboard');
+  return response.data;
+};
+
 export default api;

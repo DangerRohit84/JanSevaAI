@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { getDashboard, getRanking } from '../hooks/useApi';
+import { getPublicDashboard, getRanking } from '../hooks/useApi';
 
 const CATEGORY_ICONS = {
   infrastructure: { emoji: '🏗️', color: '#ef4444', bg: '#fef2f2' },
@@ -34,7 +34,7 @@ export default function LandingPage() {
   const loadData = async () => {
     try {
       const [dashData, rankData] = await Promise.all([
-        getDashboard(),
+        getPublicDashboard(),
         getRanking(),
       ]);
       setStats(dashData);
