@@ -11,6 +11,7 @@ export default function MPLogin() {
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
   const [constituency, setConstituency] = useState('');
+  const [sector, setSector] = useState('all');
   const [party, setParty] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -54,7 +55,7 @@ export default function MPLogin() {
       const response = await fetch(`${API_BASE}/mp/register`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, email, password, constituency, party }),
+        body: JSON.stringify({ name, email, password, constituency, sector, party }),
       });
       const data = await response.json();
       if (!response.ok) {
@@ -72,12 +73,10 @@ export default function MPLogin() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-500 to-purple-600 py-12 px-4">
+    <div className="min-h-screen flex items-center justify-center py-12 px-4" style={{ background: 'linear-gradient(135deg, #1e3a5f 0%, #0d9488 100%)' }}>
       <div className="max-w-md w-full">
         <div className="text-center mb-8">
-          <div className="w-16 h-16 bg-white rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
-            <span className="text-2xl font-bold text-blue-600">JS</span>
-          </div>
+          <img src="/logo.png" alt="JanSevaAI" className="h-20 mx-auto mb-4" />
           <h1 className="text-3xl font-bold text-white mb-2">MP Dashboard Login</h1>
           <p className="text-blue-100">JanSevaAI - People's Priorities Platform</p>
         </div>
@@ -179,6 +178,26 @@ export default function MPLogin() {
                   placeholder="e.g., Lucknow, Varanasi"
                   required
                 />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Sector Responsibility *</label>
+                <select
+                  value={sector}
+                  onChange={(e) => setSector(e.target.value)}
+                  className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  required
+                >
+                  <option value="all">All Sectors (General)</option>
+                  <option value="infrastructure">Infrastructure</option>
+                  <option value="education">Education</option>
+                  <option value="health">Health</option>
+                  <option value="water">Water Supply</option>
+                  <option value="sanitation">Sanitation</option>
+                  <option value="transport">Transport</option>
+                  <option value="agriculture">Agriculture</option>
+                  <option value="electricity">Electricity</option>
+                </select>
+                <p className="text-xs text-gray-400 mt-1">You will only see submissions in your sector</p>
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">Party (Optional)</label>

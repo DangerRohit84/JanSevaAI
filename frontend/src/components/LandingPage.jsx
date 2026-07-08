@@ -59,7 +59,7 @@ export default function LandingPage() {
     <div>
       {/* Hero Section */}
       <div style={{
-        background: 'linear-gradient(135deg, #1e3a5f 0%, #0f2744 50%, #1a1a2e 100%)',
+        background: 'linear-gradient(135deg, #1e3a5f 0%, #0d9488 50%, #1e3a5f 100%)',
         padding: '80px 24px 60px',
         position: 'relative',
         overflow: 'hidden',
@@ -72,9 +72,7 @@ export default function LandingPage() {
           <div style={{ display: 'inline-block', padding: '6px 16px', background: 'rgba(255,255,255,0.1)', borderRadius: '20px', marginBottom: '24px', fontSize: '13px', color: '#93c5fd', letterSpacing: '1px' }}>
             POWERED BY GOOGLE AI
           </div>
-          <h1 style={{ fontSize: '48px', fontWeight: 800, color: '#fff', lineHeight: 1.1, marginBottom: '16px', fontFamily: 'Inter, sans-serif' }}>
-            JanSevaAI
-          </h1>
+          <img src="/logo.png" alt="JanSevaAI" style={{ height: '120px', marginBottom: '16px' }} />
           <p style={{ fontSize: '22px', color: '#93c5fd', marginBottom: '8px', fontWeight: 500 }}>
             जनसेवाAI — Your Voice, Your Development
           </p>
@@ -226,7 +224,7 @@ export default function LandingPage() {
       <div style={{ background: '#1e293b', padding: '40px 24px', textAlign: 'center' }}>
         <div style={{ fontSize: '20px', fontWeight: 700, color: '#fff', marginBottom: '8px' }}>JanSevaAI</div>
         <div style={{ fontSize: '13px', color: '#94a3b8', marginBottom: '16px' }}>Built for Google Cloud Build with AI: Code for Communities</div>
-        <Link to="/dashboard" style={{ fontSize: '13px', color: '#60a5fa', textDecoration: 'none' }}>View Dashboard →</Link>
+        <Link to="/mp/login" style={{ fontSize: '13px', color: '#60a5fa', textDecoration: 'none' }}>MP Login →</Link>
       </div>
     </div>
   );

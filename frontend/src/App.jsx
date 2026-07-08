@@ -5,23 +5,23 @@ import CitizenForm from './components/CitizenForm'
 import PriorityQueue from './components/PriorityQueue'
 import HotspotMap from './components/HotspotMap'
 import EvidenceView from './components/EvidenceView'
-import Dashboard from './components/Dashboard'
+import MPLogin from './components/MPLogin'
+import MPDashboard from './components/MPDashboard'
 
 function AppContent() {
   const location = useLocation();
   const isLanding = location.pathname === '/';
+  const isMPPage = location.pathname.startsWith('/mp');
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {!isLanding && (
+      {!isLanding && !isMPPage && (
         <nav className="bg-white shadow-sm border-b">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex justify-between h-16">
               <div className="flex items-center">
                 <Link to="/" className="flex items-center space-x-2">
-                  <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
-                    <span className="text-white font-bold text-sm">JS</span>
-                  </div>
+                  <img src="/logo.png" alt="JanSevaAI" className="h-10" />
                   <span className="text-xl font-bold text-gray-900">JanSevaAI</span>
                 </Link>
               </div>
@@ -32,14 +32,14 @@ function AppContent() {
                 <Link to="/submit" className="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium">
                   Submit
                 </Link>
-                <Link to="/dashboard" className="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium">
-                  Dashboard
-                </Link>
                 <Link to="/priorities" className="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium">
                   Priorities
                 </Link>
                 <Link to="/map" className="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium">
                   Map
+                </Link>
+                <Link to="/mp/login" className="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-blue-700 transition">
+                  MP Login
                 </Link>
               </div>
             </div>
@@ -47,14 +47,15 @@ function AppContent() {
         </nav>
       )}
 
-      <main className={isLanding ? '' : 'max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8'}>
+      <main className={isLanding || isMPPage ? '' : 'max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8'}>
         <Routes>
           <Route path="/" element={<LandingPage />} />
           <Route path="/submit" element={<CitizenForm />} />
-          <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/priorities" element={<PriorityQueue />} />
           <Route path="/map" element={<HotspotMap />} />
           <Route path="/evidence/:category" element={<EvidenceView />} />
+          <Route path="/mp/login" element={<MPLogin />} />
+          <Route path="/mp/dashboard" element={<MPDashboard />} />
         </Routes>
       </main>
     </div>

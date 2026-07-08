@@ -17,6 +17,7 @@ class MPRegister(BaseModel):
     email: str
     password: str
     constituency: str
+    sector: str  # "education", "health", "infrastructure", "water", "sanitation", "transport", "agriculture", "electricity", "all"
     party: Optional[str] = None
     phone: Optional[str] = None
 
@@ -47,6 +48,7 @@ def register(mp: MPRegister):
         "email": mp.email,
         "password": hash_password(mp.password),
         "constituency": mp.constituency,
+        "sector": mp.sector,
         "party": mp.party,
         "phone": mp.phone,
         "role": "mp",
@@ -65,6 +67,7 @@ def register(mp: MPRegister):
             "name": mp.name,
             "email": mp.email,
             "constituency": mp.constituency,
+            "sector": mp.sector,
         },
     }
 
@@ -89,23 +92,32 @@ def login(credentials: MPLogin):
             "name": data.get("name"),
             "email": data.get("email"),
             "constituency": data.get("constituency"),
+            "sector": data.get("sector"),
             "party": data.get("party"),
         },
     }
 
 
-@router.get("/dashboard", response_model=dict)
-def mp_dashboard():
-    submissions = list(get_collection("submissions").stream())
+def get_mp_sector():
+    return _mp_sectors.get("current", "all")
 
-    total = len(submissions)
+_mp_sectors = {"current": "all"}
+
+@router.get("/dashboard", response_model=dict)
+def mp_dashboard(sector: Optional[str] = None):
+    docs = list(get_collection("submissions").limit(6000).stream())
+
+    total = len(docs)
     pending = 0
     reviewed = 0
     resolved = 0
 
-    for doc in submissions:
+    sector_counts = {}
+    for doc in docs:
         data = doc.to_dict()
         status = data.get("status", "pending")
+        cat = data.get("analysis", {}).get("category", "other")
+        sector_counts[cat] = sector_counts.get(cat, 0) + 1
         if status == "pending":
             pending += 1
         elif status in ("reviewed", "analyzed"):
@@ -114,7 +126,7 @@ def mp_dashboard():
             resolved += 1
 
     recent = []
-    for doc in submissions[:20]:
+    for doc in docs[:20]:
         data = doc.to_dict()
         recent.append({
             "id": doc.id,
@@ -135,6 +147,7 @@ def mp_dashboard():
             "pending": pending,
             "reviewed": reviewed,
             "resolved": resolved,
+            "sector_counts": sector_counts,
         },
         "recent_submissions": recent,
     }
@@ -168,30 +181,44 @@ def take_action(action: MPAction):
 
 
 @router.get("/submissions", response_model=dict)
-def list_submissions(status: Optional[str] = None, page: int = 1, page_size: int = 20):
+def list_submissions(status: Optional[str] = None, category: Optional[str] = None, page: int = 1, page_size: int = 50):
+    urgency_order = {"critical": 0, "high": 1, "medium": 2, "low": 3}
+
+    offset = (page - 1) * page_size
+
     if status:
-        docs = list(
-            get_collection("submissions")
-            .where("status", "==", status)
-            .limit(page_size)
-            .stream()
-        )
+        query = get_collection("submissions").where("status", "==", status)
     else:
-        docs = list(
-            get_collection("submissions")
-            .limit(page_size)
-            .stream()
-        )
+        query = get_collection("submissions")
+
+    all_docs = list(query.limit(offset + page_size).stream())
+    docs = all_docs[offset:]
 
     submissions = []
     for doc in docs:
         data = doc.to_dict()
         data["id"] = doc.id
+        urgency = data.get("analysis", {}).get("urgency", "medium")
+        data["_urgency_rank"] = urgency_order.get(urgency, 2)
         submissions.append(data)
+
+    if category and category != "all":
+        submissions = [s for s in submissions if s.get("analysis", {}).get("category") == category]
+
+    submissions.sort(key=lambda x: (x["_urgency_rank"], x.get("created_at", "")))
+
+    for s in submissions:
+        s.pop("_urgency_rank", None)
+
+    total_query = get_collection("submissions")
+    if status:
+        total_query = total_query.where("status", "==", status)
+    total_count = len(list(total_query.stream()))
 
     return {
         "submissions": submissions,
-        "total": len(submissions),
+        "total": total_count,
         "page": page,
         "page_size": page_size,
+        "has_more": offset + page_size < total_count,
     }
