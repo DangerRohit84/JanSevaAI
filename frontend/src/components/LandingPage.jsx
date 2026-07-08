@@ -59,16 +59,16 @@ export default function LandingPage() {
     <div>
       {/* Hero Section */}
       <div style={{
-        background: '#fff',
+        background: 'linear-gradient(180deg, #1e3a5f 0%, #0d9488 100%)',
         padding: '80px 24px 60px',
         textAlign: 'center',
       }}>
         <div style={{ maxWidth: '900px', margin: '0 auto' }}>
           <img src="/logo.png" alt="JanSevaAI" style={{ height: '160px', width: 'auto', objectFit: 'contain', marginBottom: '24px' }} />
-          <p style={{ fontSize: '24px', color: '#1e3a5f', marginBottom: '8px', fontWeight: 600 }}>
+          <p style={{ fontSize: '24px', color: '#fff', marginBottom: '8px', fontWeight: 600 }}>
             जनसेवाAI — Your Voice, Your Development
           </p>
-          <p style={{ fontSize: '16px', color: '#64748b', maxWidth: '600px', margin: '0 auto 40px', lineHeight: 1.6 }}>
+          <p style={{ fontSize: '16px', color: '#e0f2fe', maxWidth: '600px', margin: '0 auto 40px', lineHeight: 1.6 }}>
             AI-powered platform that consolidates citizen development requests into priority-ranked recommendations for MPs. Speak in any language — we listen.
           </p>
           <div style={{ display: 'flex', gap: '16px', justifyContent: 'center', flexWrap: 'wrap' }}>
