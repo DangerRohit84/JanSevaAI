@@ -450,60 +450,28 @@ export default function CitizenForm() {
       </div>
 
       {result && (
-        <div className="bg-white rounded-2xl shadow-lg p-6 animate-fade-in">
-          <h3 className="text-lg font-semibold text-gray-900 mb-4">Analysis Result</h3>
-          {result.analysis && (
-            <div className="space-y-3">
-              <div className="flex items-center space-x-2">
-                <span className="text-sm text-gray-600">Category:</span>
-                <span className="px-2 py-1 bg-blue-100 text-blue-800 rounded-full text-xs font-medium">
-                  {result.analysis.category}
-                </span>
-              </div>
-              {result.analysis.urgency && (
-                <div className="flex items-center space-x-2">
-                  <span className="text-sm text-gray-600">Urgency:</span>
-                  <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-                    result.analysis.urgency === 'high' || result.analysis.urgency === 'critical'
-                      ? 'bg-red-100 text-red-800'
-                      : result.analysis.urgency === 'medium'
-                      ? 'bg-yellow-100 text-yellow-800'
-                      : 'bg-green-100 text-green-800'
-                  }`}>
-                    {result.analysis.urgency}
-                  </span>
-                </div>
-              )}
-              {result.analysis.themes && result.analysis.themes.length > 0 && (
-                <div>
-                  <span className="text-sm text-gray-600">Themes:</span>
-                  <div className="flex flex-wrap gap-2 mt-1">
-                    {result.analysis.themes.map((theme, i) => (
-                      <span key={i} className="px-2 py-1 bg-gray-100 text-gray-700 rounded-full text-xs">
-                        {theme}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              )}
-              {result.analysis.summary && (
-                <p className="text-sm text-gray-700 mt-2">{result.analysis.summary}</p>
-              )}
-            </div>
+        <div className="bg-white rounded-2xl shadow-lg p-8 text-center animate-fade-in">
+          <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+            </svg>
+          </div>
+          <h3 className="text-2xl font-bold text-gray-900 mb-2">Thank You!</h3>
+          <p className="text-gray-600 mb-2">Your request has been submitted successfully.</p>
+          {result.id && (
+            <p className="text-sm text-gray-500 mb-6">Tracking ID: <span className="font-mono font-medium text-gray-700">{result.id}</span></p>
           )}
-          {result.transcript && (
-            <div className="mt-4 p-3 bg-gray-50 rounded-lg">
-              <p className="text-sm text-gray-600">Transcript:</p>
-              <p className="text-gray-800">{result.transcript}</p>
-            </div>
-          )}
-          {location.latitude && location.longitude && (
-            <div className="mt-4">
-              <p className="text-sm text-gray-600 mb-2">Reported Location:</p>
-              <div ref={resultMapRef} style={{ width: '100%', height: '200px', borderRadius: '8px', border: '1px solid #e5e7eb' }}></div>
-              <p className="text-xs text-gray-400 mt-1">{location.latitude.toFixed(6)}, {location.longitude.toFixed(6)}</p>
-            </div>
-          )}
+          <button
+            onClick={() => {
+              setResult(null);
+              setTextContent('');
+              setPhotoPreview(null);
+              setPhotoFile(null);
+            }}
+            className="px-6 py-3 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition"
+          >
+            Submit Another Request
+          </button>
         </div>
       )}
     </div>
