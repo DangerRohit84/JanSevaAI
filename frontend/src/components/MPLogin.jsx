@@ -14,6 +14,7 @@ export default function MPLogin() {
   const [sector, setSector] = useState('all');
   const [party, setParty] = useState('');
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
@@ -22,6 +23,7 @@ export default function MPLogin() {
       toast.error('Please fill all fields');
       return;
     }
+    setError('');
     setLoading(true);
     try {
       const response = await fetch(`${API_BASE}/mp/login`, {
@@ -31,13 +33,14 @@ export default function MPLogin() {
       });
       const data = await response.json();
       if (!response.ok) {
-        throw new Error(data.detail || 'Login failed');
+        throw new Error(data.detail || 'Invalid credentials');
       }
       localStorage.setItem('mp_token', data.token);
       localStorage.setItem('mp_data', JSON.stringify(data.mp));
       toast.success('Login successful!');
       navigate('/mp/dashboard');
     } catch (error) {
+      setError(error.message);
       toast.error(error.message);
     } finally {
       setLoading(false);
@@ -84,7 +87,7 @@ export default function MPLogin() {
         <div className="bg-white rounded-2xl shadow-2xl p-8">
           <div className="flex mb-6 bg-gray-100 rounded-lg p-1">
             <button
-              onClick={() => setIsRegister(false)}
+              onClick={() => { setIsRegister(false); setError(''); }}
               className={`flex-1 py-2 rounded-md text-sm font-medium transition ${
                 !isRegister ? 'bg-white shadow text-blue-600' : 'text-gray-600'
               }`}
@@ -92,7 +95,7 @@ export default function MPLogin() {
               Login
             </button>
             <button
-              onClick={() => setIsRegister(true)}
+              onClick={() => { setIsRegister(true); setError(''); }}
               className={`flex-1 py-2 rounded-md text-sm font-medium transition ${
                 isRegister ? 'bg-white shadow text-blue-600' : 'text-gray-600'
               }`}
@@ -132,6 +135,11 @@ export default function MPLogin() {
               >
                 {loading ? 'Logging in...' : 'Login'}
               </button>
+              {error && (
+                <div className="mt-3 p-3 bg-red-50 border border-red-200 rounded-lg text-center">
+                  <p className="text-sm text-red-600 font-medium">{error}</p>
+                </div>
+              )}
             </form>
           ) : (
             <form onSubmit={handleRegister} className="space-y-4">
