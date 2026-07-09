@@ -102,7 +102,7 @@ export default function LandingPage() {
         <div style={{ maxWidth: '1100px', margin: '0 auto', padding: '0 24px' }}>
           <div style={{ display: 'flex', justifyContent: 'space-around', flexWrap: 'wrap', gap: '24px' }}>
             <div style={{ textAlign: 'center' }}>
-              <div style={{ fontSize: '32px', fontWeight: 800, color: '#1e40af' }}>{stats?.total_submissions || 0}</div>
+              <div style={{ fontSize: '32px', fontWeight: 800, color: '#1e40af' }}>{stats?.stats?.total || 0}</div>
               <div style={{ fontSize: '13px', color: '#6b7280', textTransform: 'uppercase', letterSpacing: '1px' }}>Total Reports</div>
             </div>
             <div style={{ textAlign: 'center' }}>

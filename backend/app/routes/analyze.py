@@ -236,7 +236,23 @@ async def public_dashboard():
             "district": data.get("district", ""),
         })
 
+    # Get category counts for the landing page cards
+    docs = get_collection("submissions").where("status", "==", "analyzed").limit(5000).stream()
+    cat_counts = {}
+    for doc in docs:
+        data = doc.to_dict()
+        cat = data.get("analysis", {}).get("category", "other")
+        cat_counts[cat] = cat_counts.get(cat, 0) + 1
+
+    top_themes = [{"theme": k, "count": v} for k, v in sorted(cat_counts.items(), key=lambda x: x[1], reverse=True)]
+
     return {
-        "stats": {"total": 5001, "pending": 0, "reviewed": 5001, "resolved": 0},
+        "stats": {
+            "total": sum(cat_counts.values()),
+            "pending": 0,
+            "reviewed": sum(cat_counts.values()),
+            "resolved": 0,
+        },
+        "top_themes": top_themes,
         "recent_submissions": recent,
     }
