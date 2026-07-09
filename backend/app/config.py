@@ -26,11 +26,11 @@ class Settings(BaseSettings):
 
     @property
     def is_gcp_configured(self) -> bool:
+        # On Cloud Run, ADC works without GOOGLE_APPLICATION_CREDENTIALS
+        # Just need GCP_PROJECT_ID set
         return bool(
             self.GCP_PROJECT_ID
             and self.GCP_PROJECT_ID != "your-gcp-project-id"
-            and self.GOOGLE_APPLICATION_CREDENTIALS
-            and os.path.exists(self.GOOGLE_APPLICATION_CREDENTIALS)
         )
 
     @property

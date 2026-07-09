@@ -13,13 +13,20 @@ def get_bigquery_client():
     if _client is not None:
         return _client
 
-    credentials_path = settings.GOOGLE_APPLICATION_CREDENTIALS
     project_id = settings.GCP_PROJECT_ID
+    credentials_path = settings.GOOGLE_APPLICATION_CREDENTIALS
 
-    if credentials_path and os.path.exists(credentials_path) and project_id:
+    if project_id:
         try:
             from google.cloud import bigquery
-            _client = bigquery.Client.from_service_account_json(credentials_path)
+
+            # Try service account JSON first (local dev)
+            if credentials_path and os.path.exists(credentials_path):
+                _client = bigquery.Client.from_service_account_json(credentials_path)
+            else:
+                # ADC - works on Cloud Run with Compute Engine default SA
+                _client = bigquery.Client(project=project_id)
+
             _real_mode = True
             logger.info("BigQuery: Real mode (Google Cloud BigQuery)")
             return _client

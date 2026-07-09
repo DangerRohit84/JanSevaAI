@@ -16,13 +16,20 @@ def get_firestore():
     if _db is not None:
         return _db if _real_mode else None
 
-    credentials_path = settings.GOOGLE_APPLICATION_CREDENTIALS
     project_id = settings.GCP_PROJECT_ID
+    credentials_path = settings.GOOGLE_APPLICATION_CREDENTIALS
 
-    if credentials_path and os.path.exists(credentials_path) and project_id:
+    if project_id:
         try:
             from google.cloud import firestore
-            client = firestore.Client.from_service_account_json(credentials_path, project=project_id)
+
+            # Try service account JSON first (local dev)
+            if credentials_path and os.path.exists(credentials_path):
+                client = firestore.Client.from_service_account_json(credentials_path, project=project_id)
+            else:
+                # ADC - works on Cloud Run with Compute Engine default SA
+                client = firestore.Client(project=project_id)
+
             client.collection("_test").limit(1).get()
             _db = client
             _real_mode = True
